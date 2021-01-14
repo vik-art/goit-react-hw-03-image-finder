@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import s from './Searchbar.module.css';
+
 class Searchbar extends Component {
     state = {
         query: ""
@@ -14,9 +16,19 @@ class Searchbar extends Component {
     }
     render() {
             return (
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.query} onChange={this.handleChange}></input>
-                    <button type="submit">Искать</button>
+                <form onSubmit={this.handleSubmit} className={s.form}>
+                    <input 
+                    type="text" 
+                    value={this.state.query} 
+                    onChange={this.handleChange}
+                    className={s.input}
+                    placeholder="Введите название картинки"
+                    >
+                    </input>
+                    <button 
+                    type="submit"
+                    className={s.button}
+                    >Искать</button>
                 </form>
             )
     }
