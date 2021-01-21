@@ -1,6 +1,7 @@
 .item {
   margin: 10px;
   width: calc((100% - 4 * 20px) / 4);
+  cursor: pointer;
 }
 @media screen and (max-width: 850px) {
   .item {

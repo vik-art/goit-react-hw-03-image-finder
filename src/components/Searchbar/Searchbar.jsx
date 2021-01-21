@@ -33,7 +33,7 @@ class Searchbar extends Component {
                     <button 
                     type="submit"
                     className={s.searchFormButton}
-                    ><span className="SearchForm-button-label">Search</span></button>
+                    ><span className="SearchForm-button-label">Поиск</span></button>
                 </form>
                 </header>
             )
