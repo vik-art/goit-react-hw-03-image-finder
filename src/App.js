@@ -22,42 +22,39 @@ class App extends Component {
 }
 componentDidUpdate(prevProps, prevState) {
     if(prevState.searchQuery !== this.state.searchQuery) {
-        this.fetchImages()
+        this.fetchImages();
+    if (prevState.page !== this.state.page) {
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: "smooth",
+          });
     }
+  }
 }
-
 fetchImages = () => {
     const { page, searchQuery, error } = this.state;
     const options = { searchQuery, page, error };
     this.setState({ isLoading: true });
-
-imagesAPI
-    .fetchImages(options).then(hits => 
-         this.setState(prevState => (
-            {hits: [...prevState.hits, ...hits],
+    imagesAPI
+    .fetchImages(options)
+    .then(hits => 
+         this.setState(prevState => ({
+            hits: [...prevState.hits, ...hits],
             page: prevState.page + 1,
-            })))
+            })
+      ))
             .catch(error => this.setState({ error: "Что-то пошло не так. Попробуйте еще раз" }))
             .finally( () => this.setState({ isLoading: false}))
-          }
+         }
 onChangeQuery = query => {
     this.setState({
       searchQuery: query, 
       page: 1, 
       hits: [], 
-      error: null});
-}
-onLoadMore = () => {
-  this.fetchImages();
-      setTimeout(() => {
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: 'smooth',
-      });
-  }, 2000)
+      error: null})
 }
 
-  render() {
+render() {
     const { hits, isLoading, error } = this.state;
     const showLoadButton = hits.length > 0 && !isLoading;
   return (
@@ -67,18 +64,16 @@ onLoadMore = () => {
     <Searchbar onSubmit={this.onChangeQuery} />
     {isLoading && <LoaderMark /> }
     <ImagesGallery items = {hits}/>
-    {showLoadButton && <Button onClick={this.onLoadMore}/>
+    {showLoadButton && <Button onClick={this.fetchImages}/>
   }
   </>
-  )
-  }
+  )}
 }
 
-
 App.propTypes = {
-  fetchImages: PropTypes.func.isRequired,
-  onChangeQuery: PropTypes.func.isRequired,
-  onLoadMore: PropTypes.func.isRequired
+  fetchImages: PropTypes.func,
+  onChangeQuery: PropTypes.func,
+  onLoadMore: PropTypes.func
 }
 
 export default App;

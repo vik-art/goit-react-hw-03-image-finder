@@ -32,7 +32,7 @@ toggleModal = () => {
 }
 
 ImageGalleryItem.protoType = {
-    toggleModal: PropTypes.func.isRequired
+    toggleModal: PropTypes.func
 }
 
 export default ImageGalleryItem;

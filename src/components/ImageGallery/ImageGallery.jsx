@@ -24,9 +24,9 @@ const ImagesGallery = ({ items }) => {
 }
 
 ImagesGallery.propTypes = {
-    key: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired
+    key: PropTypes.string,
+    src: PropTypes.string,
+    alt: PropTypes.string,
+    largeImageURL: PropTypes.string
 }
 export default ImagesGallery;

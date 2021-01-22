@@ -42,8 +42,8 @@ modalRoot,
 }
 
 ModalWindow.propTypes = {
-    handleBackdropClick: PropTypes.func.isRequired,
-    handleKeydown: PropTypes.func.isRequired
+    handleBackdropClick: PropTypes.func,
+    handleKeydown: PropTypes.func
 }
 
 export default ModalWindow
