@@ -19,16 +19,17 @@ class App extends Component {
     searchQuery: "",
     isLoading: false,
     error: null,
+    onScroll: false,
 }
 componentDidUpdate(prevProps, prevState) {
     if(prevState.searchQuery !== this.state.searchQuery) {
         this.fetchImages();
-    if (prevState.page !== this.state.page) {
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: "smooth",
-          });
-    }
+  } 
+  if(this.state.onScroll === true) {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
   }
 }
 fetchImages = () => {
@@ -41,8 +42,8 @@ fetchImages = () => {
          this.setState(prevState => ({
             hits: [...prevState.hits, ...hits],
             page: prevState.page + 1,
-            })
-      ))
+            }))
+          )         
             .catch(error => this.setState({ error: "Что-то пошло не так. Попробуйте еще раз" }))
             .finally( () => this.setState({ isLoading: false}))
          }
@@ -52,6 +53,13 @@ onChangeQuery = query => {
       page: 1, 
       hits: [], 
       error: null})
+}
+
+onLoadMore = () => {
+this.fetchImages();
+if(this.state.page > 1) {
+  this.setState({onScroll: true})
+}
 }
 
 render() {
@@ -64,7 +72,7 @@ render() {
     <Searchbar onSubmit={this.onChangeQuery} />
     {isLoading && <LoaderMark /> }
     <ImagesGallery items = {hits}/>
-    {showLoadButton && <Button onClick={this.fetchImages}/>
+    {showLoadButton && <Button onClick={this.onLoadMore}/>
   }
   </>
   )}
